@@ -1,0 +1,8 @@
+.nfs*
+*.swp
+*.lock
+*.out
+*.pyc
+*~
+*.swo
+local_settings.py
