@@ -91,6 +91,8 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = ('192.168.0.9',)
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -110,7 +112,7 @@ LANGUAGE_CODE = "en"
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces
 # are displayed for error pages. Should always be set to ``False`` in
 # production. Best set to ``True`` in local_settings.py
-DEBUG = False
+DEBUG = True
 
 # Whether a user's session cookie expires when the Web browser is closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -244,6 +246,8 @@ INSTALLED_APPS = (
     #"mezzanine.accounts",
     #"mezzanine.mobile",
     "disfluxdiy.profiles",
+    "disfluxdiy.blogextras",
+    'widget_tweaks',
 )
 
 # List of processors used by RequestContext to populate the context.

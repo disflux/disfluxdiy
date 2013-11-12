@@ -1,4 +1,4 @@
-{% load i18n mezzanine_tags comment_tags %}
+{% load i18n mezzanine_tags comment_tags widget_tweaks %}
 <div id="comments" class="comments-area indented">
 
     <h4 class="comments-title">Comments</h4>
@@ -15,15 +15,34 @@ $(function() {
 </script>
 <style>.input_id_honeypot {display:none !important;}</style>
 {% comment_thread object_for_comments %}
-<h3>{% trans "New Comment" %}</h3>
+<h3>{% trans "Leave a Reply" %}</h3>
 <form class="form-inline row" method="post" id="comment" action="{{ comment_url }}#comment">
     {% if not request.POST.replied_to %}
-    {% fields_for posted_comment_form %}
+    {% for hidden in posted_comment_form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    {% for field in posted_comment_form.visible_fields %}
+    {% if field.id_for_label == 'id_honeypot' %}
+        {{ field|add_class:"input_id_honeypot" }}
     {% else %}
-    {% fields_for unposted_comment_form %}
+    {% if field.id_for_label == 'id_comment' %}
+    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+    {% else %}
+    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
     {% endif %}
-    <div class="form-actions">
-        <input class="btn btn-primary btn-large" type="submit" value="{% trans "Comment" %}">
+        <label class="" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field|add_class:"form-control" }}
+        <!--<input class="form-control" id="inputName" name="author" type="text" value="" aria-required="true" placeholder="Your Name">-->
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% for field in unposted_comment_form %}
+    
+    {% endfor %}
+    {% endif %}
+    <div class="form-actions form-group col-lg-12 col-md-12 col-sm-12">
+        <button id="submit" class="btn btn-primary" type="submit" >Post Comment</button>
     </div>
 </form>
 {% endif %}

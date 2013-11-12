@@ -1,3 +1,7 @@
 from django.db import models
+from mezzanine.blog.models import BlogPost
 
-# Create your models here.
+
+class BlogSetting(models.Model):
+    blog_post = models.OneToOneField(BlogPost)
+    featured = models.BooleanField(default=False)
